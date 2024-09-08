@@ -4,7 +4,7 @@ test.beforeEach(async( {page} ) => {
   await page.goto('https://coffee-cart.app/')
 });
 
-test('cc-5-match-price', async ({ page }) => {
+test('cc-5-match-price-in-cart', async ({ page }) => {
     const initialTotalText = await page.locator("//button[@data-test='checkout']").textContent();
     const initialTotal: number = parseFloat(initialTotalText.match(/\$(\d+\.\d+)/)[1]);
   const coffeeCupCappuccino: Locator = page.locator("//div[@aria-label='Cappuccino']");
