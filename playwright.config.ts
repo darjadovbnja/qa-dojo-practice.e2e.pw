@@ -36,6 +36,19 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+      testDir: 'tests/coffee-cart-tests', 
+    },
+
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+      testDir: 'tests/condulit-tests', 
+    },
+
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+      testDir: 'tests/pw-tests', 
     },
 
     // {
