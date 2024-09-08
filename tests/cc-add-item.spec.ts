@@ -5,8 +5,8 @@ test.beforeEach(async( {page} ) => {
 });
 
 test('cc-5-match-price-in-cart', async ({ page }) => {
-    const initialTotalText = await page.locator("//button[@data-test='checkout']").textContent();
-    const initialTotal: number = parseFloat(initialTotalText.match(/\$(\d+\.\d+)/)[1]);
+  const initialTotalText = await page.locator("//button[@data-test='checkout']").textContent();
+  const initialTotal: number = parseFloat(initialTotalText.match(/\$(\d+\.\d+)/)[1]);
   const coffeeCupCappuccino: Locator = page.locator("//div[@aria-label='Cappuccino']");
   const cappuccinoPriceText = await page.locator("//h4[contains(text(), 'Cappuccino')]/small").textContent();
   const cappuccinoPrice: number = parseFloat(cappuccinoPriceText?.replace('$', ''));
