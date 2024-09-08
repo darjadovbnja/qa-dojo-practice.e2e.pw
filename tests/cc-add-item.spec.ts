@@ -19,7 +19,7 @@ test('cc-5-match-price-in-cart', async ({ page }) => {
   await expect(finalTotal).toEqual(initialTotal + cappuccinoPrice, 2);
 });
 
-test('cc-6-item-added-to-cart', async ({ page }) => {
+test('cc-6-item-added-to-cart-branch1', async ({ page }) => {
     const coffeeCupEspresso: Locator = page.locator("div.cup-body[aria-label='Espresso']");
     const coffeeCupCappuccino: Locator = page.locator("div.cup-body[aria-label='Cappuccino']");
     const coffeeCupMocha: Locator = page.locator("div.cup-body[aria-label='Mocha']")
