@@ -51,6 +51,12 @@ export default defineConfig({
       testDir: 'tests/pw-tests', 
     },
 
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+      testDir: 'tests/telemart-tests', 
+    },
+
     // {
     //   name: 'firefox',
     //   use: { ...devices['Desktop Firefox'] },
