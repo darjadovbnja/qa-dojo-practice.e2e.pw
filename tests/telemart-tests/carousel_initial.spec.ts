@@ -11,29 +11,13 @@
 
 
 
-import {expect, Locator, test, Page} from '@playwright/test';
-
-async function verifyNumberOfBanners(carouselBanner: Locator) {
-    const banners = await carouselBanner.all();
-    await expect(banners.length).toBeGreaterThan(2);
-}
-
-async function clickForwardButton(buttonForward: Locator, times: number) {
-    for (let i = 0; i < times; i++) {
-        await buttonForward.click();
-    }
-}
-
-async function getActiveBannerURL(carouselActiveBanner: Locator) {
-    await carouselActiveBanner.getAttribute('href');
-}
+import {expect, Locator, test} from '@playwright/test';
 
 test.beforeEach(async( {page} ) => {
     await page.goto('https://telemart.ua/ua/');
 })
 
 test('active banner navigation', async( {page} ) => {
-
     const carousel: Locator = page.locator('//*[@class="categories-slider"]');
     const carouselBanner: Locator = page.locator('//*[@class="categories-slider"]//*[@class="categories-slider__image"]');
     const carouselActiveBanner: Locator = page.locator('//*[@class="categories-slider"]//*[@class="swiper-wrapper"]/*[@class="swiper-slide swiper-slide-active"]');
@@ -41,16 +25,12 @@ test('active banner navigation', async( {page} ) => {
     const carouselScroll: Locator = page.locator("//*[contains(@class, 'categories-slider-progress-bar-container__progress-bar')]");
     const buttonForward: Locator = page.locator('//*[@class="swiper-button-next"]')
 
-//    await expect((await carouselBanner.all()).length).toBeGreaterThan(2);
-    await verifyNumberOfBanners(carouselBanner);
-   
-//    await buttonForward.click();
-//    await buttonForward.click();
-    await clickForwardButton(buttonForward, 5);
-
-    const ulrOfActiveBanner = await getActiveBannerURL(carouselActiveBanner);
+    await expect((await carouselBanner.all()).length).toBeGreaterThan(2);
+    await buttonForward.click();
+    await buttonForward.click();
+    const ulrOfActiveBanner = await carouselActiveBanner.getAttribute('href')
 
     await carouselActiveBanner.click()
 
-    await expect(getActiveBannerURL(carouselActiveBanner)).toEqual(ulrOfActiveBanner);
+    await expect(page.url()).toEqual(ulrOfActiveBanner);
 })

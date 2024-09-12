@@ -24,6 +24,8 @@ test("TM-1: Check banners carrousel", async ({ page }) => {
   const currentBannerPosition: number = Number(currentBannerPositionOld);
 
   await swipeBanner(page, swipeButton);
+  await swipeBanner(page, swipeButton);
+  await swipeBanner(page, swipeButton);
 
   const bannerPosition = await activeBanner.getAttribute(
     "data-banner-position"
