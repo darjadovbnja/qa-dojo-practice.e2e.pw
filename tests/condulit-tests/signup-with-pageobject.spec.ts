@@ -16,9 +16,10 @@ test('sign up', async({page}) => {
     await loginPage.navigateTo('https://demo.learnwebdriverio.com/');
     await loginPage.clickSignUp();
     
+    const timestamp = Date.now();
     const signUpPage = new SignUpPage(page);
-    const userName = `userNameSample${timeStamp}`;
-    const userEmail = `userNameSample${timeStamp}@gmail.com`;
+    const userName = `userNameSample${timestamp}`;    
+    const userEmail = `userNameSample${timestamp}@gmail.com`;    
     const userPassword = userName+userEmail 
 
     await signUpPage.fillUsername(userName);
