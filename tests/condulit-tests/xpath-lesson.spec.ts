@@ -1,4 +1,12 @@
 import { test, expect} from '@playwright/test'
+import { HomePage } from '../../.vscode/Objects/HomePage';
+
+test('Login from homepage', async({page})=>{
+    const homePage = new HomePage(page);
+
+    await homePage.clickSignIn();
+
+})
 
 test('1215 - create user, it should be logged', async ({ page }) => {
     const randomNumber = Math.floor(Math.random() * 1000);
@@ -14,6 +22,6 @@ test('1215 - create user, it should be logged', async ({ page }) => {
 
     //expect(page.locator(`//a[contains(text(), '${username}')]`));
 
-    const coffeeToAdd = 'Cappuccino';
-    await page.locator(`//*[@class='list-header']/parent::ul//button[text()='+' and @aria-label="Add one ${coffeeToAdd}"]`).click();
+    //const coffeeToAdd = 'Cappuccino';
+    //await page.locator(`//*[@class='list-header']/parent::ul//button[text()='+' and @aria-label="Add one ${coffeeToAdd}"]`).click();
 });
