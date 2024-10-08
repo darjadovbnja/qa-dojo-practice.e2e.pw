@@ -6,6 +6,7 @@ export class SignUpPage extends BasePage {
     private userNameField: Locator;
     private emailField: Locator;
     private passwordField: Locator;
+    private signInButton: Locator;
     signUpButton: Locator
 
     constructor(page: Page){
@@ -14,6 +15,7 @@ export class SignUpPage extends BasePage {
         this.emailField = this.page.locator('[placeholder="Email"]');
         this.passwordField = this.page.locator('[placeholder="Password"]');
         this.signUpButton = this.page.locator("[class*='btn']");
+        this.signInButton = this.page.locator("");
     }
 
     async fillUsername (userName: string){
