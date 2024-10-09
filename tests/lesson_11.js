@@ -29,4 +29,8 @@ alert( isEmpty(schedule) ); // true
 
 alert( isEmpty(schedule) ); // false
 
+<<<<<<< HEAD
 schedule['gym'] = '8:30'
+=======
+schedule['gym'] = '8:30'
+>>>>>>> 43c81cce2afb41e7ee6af9e8f9fccbbf0bc0eba4

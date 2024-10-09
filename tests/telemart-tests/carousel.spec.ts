@@ -50,7 +50,11 @@ test('active banner navigation', async( {page} ) => {
 
     const ulrOfActiveBanner = await getActiveBannerURL(carouselActiveBanner);
 
-    await carouselActiveBanner.click()
+    await Promise.all([
+        carouselActiveBanner.click(),
+        expect(getActiveBannerURL(carouselActiveBanner)).toEqual(ulrOfActiveBanner)
+    ])
+    // await carouselActiveBanner.click()
 
-    await expect(getActiveBannerURL(carouselActiveBanner)).toEqual(ulrOfActiveBanner);
+    // await expect(getActiveBannerURL(carouselActiveBanner)).toEqual(ulrOfActiveBanner);
 })
