@@ -1,8 +1,4 @@
 import { expect } from '@playwright/test';
-// import { BasePage } from '../../.vscode/Objects/BasePage';
-// import { LoginPage } from '../../.vscode/Objects/LoginPage';
-// import { SignInPage } from '../../.vscode/Objects/SignInPage';
-// import { HomePage } from '../../.vscode/Objects/HomePage';
 import { timeStamp } from 'console';
 import { test } from '../../tests/condulit-tests/fixtures/signUpFixture.ts';
 
