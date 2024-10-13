@@ -57,6 +57,12 @@ export default defineConfig({
       testDir: 'tests/telemart-tests', 
     },
 
+    {
+      name: 'rztk',
+      use: { ...devices['Desktop Chrome'] },
+      testDir: 'tests/rztk-tests', 
+    },
+
     // {
     //   name: 'firefox',
     //   use: { ...devices['Desktop Firefox'] },
