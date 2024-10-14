@@ -18,7 +18,7 @@ const testData = [
 
  
 for (const data of testData) {
-    test(`${data.testId}. Search for ${data.searchQuery}`, async({page}) => {
+    test.describe.serial(`${data.testId}. Search for ${data.searchQuery}`, async({page}) => {
         await page.goto('https://rozetka.com.ua/');
         await page.locator("input[name='search']").fill(data.searchQuery);
         await page.locator("input[name='search']").press('Enter');
