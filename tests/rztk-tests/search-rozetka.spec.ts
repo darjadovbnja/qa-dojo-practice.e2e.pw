@@ -1,8 +1,5 @@
 import { expect, test } from '@playwright/test';
 
-const arr = []; // for of
-const object = {}; // for in
-
 const testData = [
     {
         testId: 'rztk-001',
@@ -16,16 +13,17 @@ const testData = [
     },
 ]
 
- 
 for (const data of testData) {
-    test.describe.serial(`${data.testId}. Search for ${data.searchQuery}`, async({page}) => {
-        await page.goto('https://rozetka.com.ua/');
-        await page.locator("input[name='search']").fill(data.searchQuery);
-        await page.locator("input[name='search']").press('Enter');
-    
-        const searchResult = page.locator(`//div[contains(@class, 'goods-tile__inner')]//a//img`).first();
-    
-        expect(searchResult.getAttribute('title')).toContain(data.searchResultWord);
-            
-    })
+    test.describe.serial(`${data.testId}. Search for ${data.searchQuery}`, () => {
+        test(`${data.testId} - should search and find ${data.searchQuery}`, async ({ page }) => {
+            await page.goto('https://rozetka.com.ua/');
+            await page.locator("input[name='search']").fill(data.searchQuery);
+            await page.locator("input[name='search']").press('Enter');
+        
+            const searchResult = await page.locator(`//div[contains(@class, 'goods-tile__inner')]//a//img`).first();
+            const titleAttribute = await searchResult.getAttribute('title');
+        
+            expect(titleAttribute).toContain(data.searchResultWord);
+        });
+    });
 }
