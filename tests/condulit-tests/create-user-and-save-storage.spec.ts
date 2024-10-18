@@ -1,24 +1,21 @@
 import test, { expect } from "@playwright/test";
 import { promises } from "fs";
 import { createRandomUserData } from "./helper.ts";
-import { RegisterPage } from "./HomePage";
+import { HomePage } from '../../.vscode/Objects/HomePage';
+import { register } from "module";
+import { SignInPage } from "../../.vscode/Objects/SignInPage.ts";
+import { LoginPage } from "../../.vscode/Objects/LoginPage.ts";
 
-test("working with cookies", async ({ page, context }) => {
-  //додає кукі у контекст який використовує цей тест.
-  await context.addCookies([
-    {
-      name: "qa-dojo",
-      value: "this is my cookie testing",
-      url: "https://demo.learnwebdriverio.com/",
-    },
-  ]);
+const userData  = createRandomUserData();
 
-  const allCookies = await context.cookies(); // повертає всі кукі які зараз існують в контексті виконання.
+test('some regist1', async({page}) => {
+  const loginPage = new LoginPage(page);
+  const register = new SignInPage(page);
 
-  const addedCookie = allCookies.find((value) => value.name === "qa-dojo"); // приклад використання метода find для знаходження cookie з name === qa-dojo
-
-  await context.clearCookies({ name: "qa-dojo" }); // видаляє кукі за властивітю name
-});
+  await loginPage.clickSignUp();
+  await register.fillInputFields(userData);
+  await register.clickSignInButton();
+})
 
 test("приклад зберігання cookies в json файл", async ({ page, context }) => {
   await page.goto("https://www.zara.com/ua/uk/");
@@ -28,50 +25,15 @@ test("приклад зберігання cookies в json файл", async ({ pa
   await page.locator("#onetrust-reject-all-handler").click();
   await responsePromise;
 
+  const response = await responsePromise;
+  const body = await response.json();
   const cookies = await context.cookies(); // записуємо всі кукі в змінну cookies
+  console.log(cookies);
+  
 
   // за допомогою бібліотеки fs і обʼєкту promises ми записуємо кукі у файл zara.cookies.json
   await promises.writeFile(
     "tests/condulit-tests/.cookies/zara.cookies.json",
     JSON.stringify(cookies)
   );
-});
-
-test("приклад збереження сессії юзера", async ({ page, context }) => {
-  const userData = createRandomUserData();
-
-  const register = new RegisterPage(page);
-  await register.navigateToSignUpPage();
-  await register.fillInputFields(userData);
-
-  const responsePromise = page.waitForResponse(RegExp("/api/users"));
-  await register.clickSignUpButton();
-
-  // очікуємо поки логін юзера буде зевершений за допомогою UI
-  await expect(page.getByText(userData.name, { exact: false })).toBeVisible();
-
-  // очікуємо поки реквест який створює юзера виконається
-  const response = await responsePromise;
-  expect(response.ok()).toBeTruthy();
-
-  // після того як ми впевненились що юзер створений і залогінився, ми зберігаємо його сесію
-  await page.context().storageState({
-    path: `tests/condulit-tests/.auth/${userData.name}.storage.json`,
-  });
-});
-
-test("приклад використання збереженох сессії юзера", async ({ browser }) => {
-  const userData = createRandomUserData();
-
-  // створюємо новий контекст який буде використовувати вже існуючий storageState
-  const context = await browser.newContext({
-    storageState: "tests/condulit-tests/.auth/sydni.auth.json", // шлях до збереженої раніше сессії
-  });
-
-  // створюємо нову пейджу (зверніть увагу що в цьому тесті використовується лише фікстура browser)
-  const page = await context.newPage();
-
-  await page.goto("https://demo.learnwebdriverio.com/");
-
-  // сесія браузер буде використовувати стан який був створений раніше
 });
