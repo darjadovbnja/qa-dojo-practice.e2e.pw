@@ -12,6 +12,18 @@ export const userLogin = test.extend<MyFixture>({
 
         await use(signInPage)
     },
+    context: async ({context}, use) => {
+        context.addCookies([
+            {
+              name: 'qa-dojo',
+              value: 'this is my testing cookies',
+              url: 'https://demo.learnwebdriverio.com/',
+            },
+        ]);
+        await use(context);
+
+    },
+
     page: async ({ page }, use) => {
         
         const signInPage = new SignInPage(page);
@@ -20,6 +32,5 @@ export const userLogin = test.extend<MyFixture>({
 
         await signInPage.fillInputFields({email: '123', pass: '312'});
         }
-
         //userData: {email: '', password: ''},
 });
